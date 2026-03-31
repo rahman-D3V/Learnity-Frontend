@@ -1,11 +1,15 @@
-export const NavbarLinks = [
+export type NavbarLink = {
+  title: string;
+  path?: string;
+};
+
+export const navbarLinks: NavbarLink[] = [
   {
     title: "Home",
     path: "/",
   },
   {
     title: "Catalog",
-    // path: '/catalog',
   },
   {
     title: "About Us",
