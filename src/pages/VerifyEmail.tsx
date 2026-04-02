@@ -1,13 +1,17 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { CiTimer } from "react-icons/ci";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
+import { useAuthStore } from "../store/useAuthStore";
+import { signUp } from "../services/opeartions/authApi";
 
 const VerifyEmail = () => {
   const [otp, setOtp] = useState(Array(6).fill(""));
   const inputsRef = useRef([]);
 
-    const navigate = useNavigate()
+  const signupData = useAuthStore((s) => s.signupData);
+
+  const navigate = useNavigate();
 
   const handleChange = (value, index) => {
     if (!/^[0-9]?$/.test(value)) return;
@@ -29,11 +33,39 @@ const VerifyEmail = () => {
     }
   };
 
+  function handle() {
+    const {
+      firstName,
+      lastName,
+      email,
+      password,
+      confirmPassword,
+      accountType,
+    } = signupData;
+
+    const OTP = otp.join("");
+
+    signUp(
+      firstName,
+      lastName,
+      email,
+      password,
+      confirmPassword,
+      accountType,
+      OTP,
+      navigate
+    );
+  }
+
+  useEffect(() => {
+    if (!signupData) {
+      navigate("/signup");
+    }
+  }, []);
+
   return (
     <div className="bg-richblack-900 h-screen w-screen flex flex-col justify-center items-center">
       <div className="flex flex-col items-center  w-127 p-8 gap-6">
-
-
         <div className="space-y-3">
           <p className="font-inter font-semibold text-[30px] text-richblack-5">
             Verify email
@@ -60,15 +92,26 @@ const VerifyEmail = () => {
         </div>
 
         <div className="w-full space-y-3">
-            <button className="font-inter font-medium text-[16px] text-richblack-900 rounded-lg p-3 bg-yellow-50 w-full">Verify and Register</button>
-            <div className="flex gap-3 justify-between">
-                <button onClick={() => navigate("/login")} className="p-3 flex gap-1 font-inter cursor-pointer font-medium text-[16px] text-richblack-5 items-center"><IoIosArrowRoundBack size={22}/>Back to login</button>
-                <button className="p-3 flex gap-1 font-inter cursor-pointer font-medium text-[16px] text-blue-100 items-center"><CiTimer  size={22}/>Resend it</button>
-                
-            </div>
+          <button
+            onClick={handle}
+            className="font-inter font-medium text-[16px] text-richblack-900 rounded-lg p-3 bg-yellow-50 w-full"
+          >
+            Verify and Register
+          </button>
+          <div className="flex gap-3 justify-between">
+            <button
+              onClick={() => navigate("/login")}
+              className="p-3 flex gap-1 font-inter cursor-pointer font-medium text-[16px] text-richblack-5 items-center"
+            >
+              <IoIosArrowRoundBack size={22} />
+              Back to login
+            </button>
+            <button className="p-3 flex gap-1 font-inter cursor-pointer font-medium text-[16px] text-blue-100 items-center">
+              <CiTimer size={22} />
+              Resend it
+            </button>
+          </div>
         </div>
-
-
       </div>
     </div>
   );

@@ -6,7 +6,7 @@ import { useCartStore } from "../../store/useCartStore";
 import ProfileDropdown from "../core/Auth/ProfileDropdown";
 import { useEffect } from "react";
 import { apiConnector } from "../../services/apiConnector";
-import { categories } from "../../services/apis";
+import { categoriesEndpoints } from "../../services/apis";
 
 const Navbar = () => {
   const location = useLocation();
@@ -33,7 +33,10 @@ const Navbar = () => {
 
   useEffect(() => {
     const fetchAllCategories = async (): Promise<void> => {
-      const data = await apiConnector("GET", categories.getAllCategories);
+      const data = await apiConnector(
+        "GET",
+        categoriesEndpoints.getAllCategoriesApi,
+      );
       console.log(data);
     };
 

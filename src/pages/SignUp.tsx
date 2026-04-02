@@ -1,11 +1,19 @@
 import { IoEye, IoEyeOff } from "react-icons/io5";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm, type SubmitHandler } from "react-hook-form";
+import { useAuthStore } from "../store/useAuthStore";
+import { sendOTP } from "../services/opeartions/authApi";
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [accountType, setAccountType] = useState("");
+
+  const [otpSent, setOtpSent] = useState(false);
+
+  const setSignupData = useAuthStore((s) => s.setSignupData);
+  const loading = useAuthStore((s) => s.loading);
 
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
@@ -23,8 +31,23 @@ const SignUp = () => {
   } = useForm<FormValues>();
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
-    console.log(data);
+    const userData = {
+      ...data,
+      accountType,
+    };
+
+    console.log(userData);
+
+    setSignupData(userData);
+
+    sendOTP(userData.email, setOtpSent);
   };
+
+  useEffect(() => {
+    if (otpSent) {
+      navigate("/verify-email");
+    }
+  }, [otpSent]);
 
   return (
     <div className="bg-richblack-900 h-screen w-screen ">
@@ -50,10 +73,18 @@ const SignUp = () => {
 
           {/* Buttons */}
           <div className="bg-richblack-800 p-1 flex gap-[5px] rounded-[500px] w-[230px] shadow-[inset_0px_-1px_0px_0px_#FFFFFF2E]">
-            <button className="font-inter font-medium text-[16px] text-richblack-200 rounded-[100px] py-[6px] px-[18px] hover:bg-richblack-900 cursor-pointer">
+            <button
+              onClick={() => setAccountType("Student")}
+              type="button"
+              className="font-inter font-medium text-[16px] text-richblack-200 rounded-[100px] py-[6px] px-[18px] hover:bg-richblack-900 cursor-pointer"
+            >
               Student
             </button>
-            <button className="font-inter font-medium text-[16px] text-richblack-200 rounded-[100px] py-[6px] px-[18px] hover:bg-richblack-900 cursor-pointer">
+            <button
+              onClick={() => setAccountType("Instructor")}
+              type="button"
+              className="font-inter font-medium text-[16px] text-richblack-200 rounded-[100px] py-[6px] px-[18px] hover:bg-richblack-900 cursor-pointer"
+            >
               Instructors
             </button>
           </div>
@@ -204,7 +235,7 @@ const SignUp = () => {
             type="submit"
             className="bg-[#FFD60A] w-full shadow-[-2px_-2px_0px_0px_#FFFFFF82_inset] text-richblack-900 rounded-lg px-6 py-3 font-inter font-semibold text-[16px] cursor-pointer"
           >
-            Create Account
+            {loading ? "Loading..." : "Create Account"}
           </button>
 
           <p className="text-richblack-300 text-center">

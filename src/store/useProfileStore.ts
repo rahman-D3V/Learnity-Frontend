@@ -10,8 +10,17 @@ export const useProfileStore = create<UserStore>((set) => ({
 }));
 
 type UserStore = {
-  user: object;
+  user: UserType | null;
   loading: boolean;
-  setUser: (data: object) => void;
+  setUser: (data: UserType | null) => void;
   setLoading: (data: boolean) => void;
+};
+
+type UserType = {
+  accountType: string;
+  email: string;
+  firstName: string;
+  id: string;
+  image: string;
+  lastName: string;
 };

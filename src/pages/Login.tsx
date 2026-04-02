@@ -2,9 +2,14 @@ import { IoEye, IoEyeOff } from "react-icons/io5";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import { signIn } from "../services/opeartions/authApi";
+import { useAuthStore } from "../store/useAuthStore";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
+
+  const loading = useAuthStore((s) => s.loading);
 
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
@@ -20,6 +25,8 @@ const Login = () => {
 
   const onSubmit = (data: FormValues) => {
     console.log(data);
+    const { email, password } = data;
+    signIn(email, password, navigate);
   };
 
   return (
@@ -99,7 +106,10 @@ const Login = () => {
                   {errors.password.message}
                 </p>
               )}
-              <p className="font-inter font-normal text-[12px] text-blue-100 text-end hover:underline cursor-pointer">
+              <p
+                onClick={() => navigate("/reset-password-link")}
+                className="font-inter font-normal text-[12px] text-blue-100 text-end hover:underline cursor-pointer"
+              >
                 Forgot password
               </p>
             </div>
@@ -109,7 +119,7 @@ const Login = () => {
             type="submit"
             className="bg-[#FFD60A] w-full shadow-[-2px_-2px_0px_0px_#FFFFFF82_inset] text-richblack-900 rounded-lg px-6 py-3 font-inter font-semibold text-[16px] cursor-pointer"
           >
-            Sign in
+            {loading ? "Loading..." : "Sign in"}
           </button>
           <p className="text-richblack-300 text-center">
             Don't have an account?{" "}

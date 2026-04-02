@@ -1,5 +1,9 @@
 // import React, { useEffect, useState } from "react";
 
+import { useNavigate } from "react-router-dom";
+import { useAuthStore } from "../store/useAuthStore";
+import { logout } from "../services/opeartions/authApi";
+
 // const Test = () => {
 //   const [name, setName] = useState([]);
 //   const [err, setErr] = useState("");
@@ -66,7 +70,20 @@
 // export default Test;
 
 const Test = () => {
-  return <div>Test</div>;
+
+  const user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user") as string) : {} 
+
+  const navigate = useNavigate()
+
+  function handle(){
+    logout(navigate)
+  }
+
+  return <div>Test
+   <h1>Welcome {user.firstName}</h1>
+   <img className="h-50" src={user.image} alt="" />
+   <h1 className="text-2xl inline bg-amber-700" onClick={handle}>Logout</h1>
+  </div>;
 };
 
 export default Test;
