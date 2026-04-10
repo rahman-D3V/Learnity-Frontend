@@ -11,7 +11,7 @@ const Footer: React.FC = () => {
           {/* Brand */}
           <div>
             <h2 className="text-white text-lg font-semibold mb-3">
-              StudyNotion
+              Learnity
             </h2>
             <p className="text-sm">
               Learn, build, and grow with curated tech resources.
@@ -61,7 +61,7 @@ const Footer: React.FC = () => {
           </div>
 
           <p className="mt-3 md:mt-0">
-            © {new Date().getFullYear()} StudyNotion • Made with ❤️
+            © {new Date().getFullYear()} Learnity • Made with ❤️
           </p>
         </div>
 

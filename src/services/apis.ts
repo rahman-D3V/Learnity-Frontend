@@ -10,4 +10,12 @@ export const authEndpoints = {
   loginApi: BASE_URL + "/auth/login",
   resetPasswordTokenApi: BASE_URL + "/auth/reset-password-token",
   resetPasswordApi: BASE_URL + "/auth/reset-password",
+  chagePasswordApi: BASE_URL + "/auth/changepassword"
 };
+
+export const profileEndpoints = {
+  getUserDetails: BASE_URL + "/profile/getUserDetails",
+  updateProfilePicture: BASE_URL + "/profile/updateDisplayPicture",
+  updateProfile: BASE_URL + "/profile/updateProfile"
+
+}

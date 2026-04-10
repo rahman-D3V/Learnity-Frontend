@@ -1,8 +1,7 @@
 import { IoEye, IoEyeOff } from "react-icons/io5";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
-import { toast } from "react-toastify";
+import { useForm, type SubmitHandler } from "react-hook-form";
 import { signIn } from "../services/opeartions/authApi";
 import { useAuthStore } from "../store/useAuthStore";
 
@@ -12,7 +11,7 @@ const Login = () => {
   const loading = useAuthStore((s) => s.loading);
 
   const handleShowPassword = () => {
-    setShowPassword(!showPassword);
+    setShowPassword((prev) => !prev);
   };
 
   const navigate = useNavigate();
@@ -20,17 +19,17 @@ const Login = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<FormValues>();
 
-  const onSubmit = (data: FormValues) => {
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
     console.log(data);
     const { email, password } = data;
-    signIn(email, password, navigate);
+    await signIn(email, password, navigate);
   };
 
   return (
-    <div className="bg-richblack-900 h-screen w-screen ">
+    <div className="bg-richblack-900 h-screen w-screen">
       {/* MAIN  */}
       <div className="w-360   mx-auto  ">
         {/* ----FORM---- */}
@@ -60,7 +59,13 @@ const Login = () => {
                 type="email"
                 placeholder="Enter email address"
                 className="rounded-lg p-3 w-full bg-richblack-800 text-richblack-200 shadow-[inset_0px_-1px_0px_0px_#FFFFFF2E]  outline-0"
-                {...register("email", { required: "Email is required" })}
+                {...register("email", {
+                  required: "Email is required",
+                  pattern: {
+                    value: /^\S+@\S+$/i,
+                    message: "Invalid email address",
+                  },
+                })}
               />
 
               {errors.email && (
@@ -116,6 +121,7 @@ const Login = () => {
           </div>
 
           <button
+            disabled={isSubmitting}
             type="submit"
             className="bg-[#FFD60A] w-full shadow-[-2px_-2px_0px_0px_#FFFFFF82_inset] text-richblack-900 rounded-lg px-6 py-3 font-inter font-semibold text-[16px] cursor-pointer"
           >

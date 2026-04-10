@@ -1,3 +1,4 @@
+import { ImSpinner3 } from "react-icons/im";
 import { IoEye, IoEyeOff } from "react-icons/io5";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -16,10 +17,10 @@ const SignUp = () => {
   const loading = useAuthStore((s) => s.loading);
 
   const handleShowPassword = () => {
-    setShowPassword(!showPassword);
+    setShowPassword((prev) => !prev);
   };
   const handleShowConfirmPassword = () => {
-    setShowConfirmPassword(!showConfirmPassword);
+    setShowConfirmPassword((prev) => !prev);
   };
 
   const navigate = useNavigate();
@@ -27,10 +28,10 @@ const SignUp = () => {
   const {
     handleSubmit,
     register,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<FormValues>();
 
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
     const userData = {
       ...data,
       accountType,
@@ -40,7 +41,7 @@ const SignUp = () => {
 
     setSignupData(userData);
 
-    sendOTP(userData.email, setOtpSent);
+    await sendOTP(userData.email, setOtpSent);
   };
 
   useEffect(() => {
@@ -60,7 +61,7 @@ const SignUp = () => {
         >
           <div className="space-y-3">
             <p className="font-inter font-semibold text-[30px] text-richblack-5">
-              Join the millions learning to code with StudyNotion for free
+              Join the millions learning to code with Learnity for free
             </p>
             <p className="font-inter text-richblack-100 font-normal text-[18px] ">
               Build skills for today, tomorrow, and beyond.
@@ -76,14 +77,14 @@ const SignUp = () => {
             <button
               onClick={() => setAccountType("Student")}
               type="button"
-              className="font-inter font-medium text-[16px] text-richblack-200 rounded-[100px] py-[6px] px-[18px] hover:bg-richblack-900 cursor-pointer"
+              className={`font-inter font-medium text-[16px] text-richblack-200 rounded-[100px] py-[6px] px-[18px] hover:bg-richblack-900  ${accountType == "Student" ? "bg-richblack-900 cursor-default" : "cursor-pointer"} `}
             >
               Student
             </button>
             <button
               onClick={() => setAccountType("Instructor")}
               type="button"
-              className="font-inter font-medium text-[16px] text-richblack-200 rounded-[100px] py-[6px] px-[18px] hover:bg-richblack-900 cursor-pointer"
+              className={`font-inter font-medium text-[16px] text-richblack-200 rounded-[100px] py-[6px] px-[18px] hover:bg-richblack-900  ${accountType == "Instructor" ? "bg-richblack-900 cursor-default" : "cursor-pointer"} `}
             >
               Instructors
             </button>
@@ -232,10 +233,15 @@ const SignUp = () => {
           </div>
 
           <button
+            disabled={isSubmitting}
             type="submit"
             className="bg-[#FFD60A] w-full shadow-[-2px_-2px_0px_0px_#FFFFFF82_inset] text-richblack-900 rounded-lg px-6 py-3 font-inter font-semibold text-[16px] cursor-pointer"
           >
-            {loading ? "Loading..." : "Create Account"}
+            {loading ? (
+              <ImSpinner3 className="animate-spin text-2xl text-black text-center " />
+            ) : (
+              "Create Account"
+            )}
           </button>
 
           <p className="text-richblack-300 text-center">

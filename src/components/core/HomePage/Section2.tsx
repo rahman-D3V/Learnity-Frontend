@@ -22,7 +22,7 @@ const Section2 = () => {
           </p>
           <div className="flex flex-col gap-3 w-[50%]">
             <p className="font-inter font-medium text-[16px] text-richblack-700">
-              The modern StudyNotion is the dictates its own terms. Today, to be
+              The modern Learnity is the dictates its own terms. Today, to be
               a competitive specialist requires more than professional skills.
             </p>
             <div className="pt-9">

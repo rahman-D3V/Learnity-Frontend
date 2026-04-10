@@ -2,7 +2,6 @@ import { Link, useLocation } from "react-router-dom";
 import { navbarLinks, type NavbarLink } from "../../data/navbar-links";
 import { useAuthStore } from "../../store/useAuthStore";
 import { useProfileStore } from "../../store/useProfileStore";
-import { useCartStore } from "../../store/useCartStore";
 import ProfileDropdown from "../core/Auth/ProfileDropdown";
 import { useEffect } from "react";
 import { apiConnector } from "../../services/apiConnector";
@@ -17,7 +16,6 @@ const Navbar = () => {
   // const totalItems = useCartStore((state) = state.totalItems)
 
   const user = useProfileStore((s) => s.user);
-  const totalItems = useCartStore((s) => s.totalItems);
   const token = useAuthStore((s) => s.token);
 
   const subLinks = [
@@ -63,7 +61,7 @@ const Navbar = () => {
                 {item.title}
               </Link>
             ) : (
-              <div className="relative group cursor-pointer">
+              <div key={index} className="relative group cursor-pointer">
                 <span className="px-3 py-2 hover:text-yellow-200 transition">
                   {item.title}
                 </span>

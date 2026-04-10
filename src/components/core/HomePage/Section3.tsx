@@ -17,7 +17,7 @@ const Section3 = () => {
           </p>
           <p className="font-inter font-medium text-[16px] text-richblack-300">
             Instructors from around the world teach millions of students on
-            StudyNotion. We provide the tools and skills to teach what you love.
+            Learnity. We provide the tools and skills to teach what you love.
           </p>
           <div className="pt-13">
             <Button

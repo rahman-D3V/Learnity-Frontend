@@ -4,6 +4,7 @@ import { apiConnector } from "../apiConnector";
 import { authEndpoints } from "../apis";
 import { useProfileStore } from "../../store/useProfileStore";
 import type { Dispatch, SetStateAction } from "react";
+import type { NavigateFunction } from "react-router-dom";
 
 export async function getResetPasswordToken(
   email: string,
@@ -97,14 +98,14 @@ export async function sendOTP(
 }
 
 export async function signUp(
-  firstName,
-  lastName,
-  email,
-  password,
-  confirmPassword,
-  accountType,
-  otp,
-  navigate,
+  firstName: string,
+  lastName: string,
+  email: string,
+  password: string,
+  confirmPassword: string,
+  accountType: string,
+  otp: string,
+  navigate: NavigateFunction,
 ) {
   const { setLoading } = useAuthStore.getState();
   try {
@@ -137,7 +138,11 @@ export async function signUp(
   }
 }
 
-export async function signIn(email, password, navigate) {
+export async function signIn(
+  email: string,
+  password: string,
+  navigate: NavigateFunction,
+) {
   const { setLoading, setToken } = useAuthStore.getState();
   const { setUser } = useProfileStore.getState();
 
@@ -163,7 +168,7 @@ export async function signIn(email, password, navigate) {
     localStorage.setItem("token", JSON.stringify(response.data.token));
     localStorage.setItem("user", JSON.stringify(response.data.user));
 
-    navigate("/test");
+    navigate("/dashboard/my-profile");
   } catch (error) {
     toast.error("Can't login, Try again");
     console.log("Error while login...", error);
@@ -172,7 +177,7 @@ export async function signIn(email, password, navigate) {
   }
 }
 
-export function logout(navigate: (path: string) => void) {
+export function logout(navigate: NavigateFunction) {
   const { setToken } = useAuthStore.getState();
   const { setUser } = useProfileStore.getState();
 
@@ -185,19 +190,50 @@ export function logout(navigate: (path: string) => void) {
   navigate("/");
 }
 
-type SignUpParams = {
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-  accountType: string;
-  otp: string;
-  navigate: (path: string) => void;
-};
+export async function changePassword(
+  currentPassword: string,
+  newPassword: string,
+  navigate: NavigateFunction,
+  setIsPasswordChanging: Dispatch<SetStateAction<boolean>>,
+) {
+  const { token } = useAuthStore.getState();
+  try {
+    setIsPasswordChanging(true);
+    const response = await apiConnector(
+      "POST",
+      authEndpoints.chagePasswordApi,
+      { currentPassword, newPassword },
+      {
+        Authorization: `Bearer ${token}`,
+      },
+    );
 
-type SignInParams = {
-  email: string;
-  password: string;
-  navigate: (path: string) => void;
-};
+    if (!response.data.success) {
+      throw new Error(response.data.message);
+    }
+
+    toast.success("Password changed successfully");
+    navigate("/dashboard/my-profile");
+  } catch (error) {
+    toast.error("Failed to changed Password");
+    console.log(error);
+  } finally {
+    setIsPasswordChanging(false);
+  }
+}
+
+// export async function getUserDetails() {
+//   const response = await apiConnector("GET",profileEndpoints.getUserDetails)
+//   console.log(response)
+// }
+
+// type SignUpParams = {
+//   firstName: string;
+//   lastName: string;
+//   email: string;
+//   password: string;
+//   confirmPassword: string;
+//   accountType: string;
+//   otp: string;
+//   navigate: NavigateFunction;
+// };

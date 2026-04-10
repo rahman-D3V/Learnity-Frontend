@@ -23,4 +23,12 @@ type UserType = {
   id: string;
   image: string;
   lastName: string;
+  additionalDetails: AdditionalDetailsType
 };
+
+type AdditionalDetailsType = {
+  about: string,
+  contactNumber: string,
+  dateOfBirth: string,
+  gender: string
+}
