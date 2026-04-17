@@ -35,7 +35,7 @@ const Navbar = () => {
         "GET",
         categoriesEndpoints.getAllCategoriesApi,
       );
-      console.log(data);
+      // console.log(data);
     };
 
     fetchAllCategories();

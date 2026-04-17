@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { signIn } from "../services/opeartions/authApi";
 import { useAuthStore } from "../store/useAuthStore";
+import { ImSpinner10 } from "react-icons/im";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -123,9 +124,10 @@ const Login = () => {
           <button
             disabled={isSubmitting}
             type="submit"
-            className="bg-[#FFD60A] w-full shadow-[-2px_-2px_0px_0px_#FFFFFF82_inset] text-richblack-900 rounded-lg px-6 py-3 font-inter font-semibold text-[16px] cursor-pointer"
+            className="bg-[#FFD60A] w-full shadow-[-2px_-2px_0px_0px_#FFFFFF82_inset] text-richblack-900 rounded-lg px-6 py-3 font-inter font-semibold text-[16px] cursor-pointer flex items-center justify-center gap-2"
           >
-            {loading ? "Loading..." : "Sign in"}
+            {loading && <ImSpinner10 className="animate-spin" size={19} />}
+            {loading ? "Signing in..." : "Sign in"}
           </button>
           <p className="text-richblack-300 text-center">
             Don't have an account?{" "}

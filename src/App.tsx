@@ -12,8 +12,10 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Dashboard from "./pages/Dashboard";
 import MyProfile from "./components/core/Dashboard/MyProfile";
-import EnrolledCourse from "./components/core/Dashboard/EnrolledCourse";
+import EnrolledCourse from "./components/core/Dashboard/EnrolledCourses";
 import Setting from "./components/core/Dashboard/Setting";
+import Cart from "./components/core/Dashboard/Cart";
+import { CreateCourse } from "./components/core/Dashboard/createCourse/CreateCourse";
 
 const App = () => {
   return (
@@ -35,14 +37,16 @@ const App = () => {
         <Route path="/dashboard/instructor" element={<Dashboard />} />
         <Route path="/dashboard/my-courses" element={<Dashboard />} />
 
-
         <Route element={<Dashboard />}>
           <Route path="/dashboard/my-profile" element={<MyProfile />} />
-          <Route path="/dashboard/enrolled-courses" element={<EnrolledCourse />} />
-          <Route path="/dashboard/setting" element={<Setting/>} />
+          <Route
+            path="/dashboard/enrolled-courses"
+            element={<EnrolledCourse />}
+          />
+          <Route path="/dashboard/setting" element={<Setting />} />
+          <Route path="/dashboard/cart" element={<Cart />} />
+          <Route path="/dashboard/add-course" element={<CreateCourse />} />
         </Route>
-
-
 
         <Route path="*" element="Galat page pe aagye AAAAP..." />
 

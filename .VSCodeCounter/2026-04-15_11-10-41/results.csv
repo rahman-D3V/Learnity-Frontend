@@ -1,0 +1,61 @@
+"filename", "language", "TypeScript JSX", "PostCSS", "TypeScript", "JSON", "JavaScript", "XML", "comment", "blank", "total"
+"c:\Users\HABIB\Desktop\LMS\LMS\src\App.css", "PostCSS", 0, 1, 0, 0, 0, 0, 0, 0, 1
+"c:\Users\HABIB\Desktop\LMS\LMS\src\App.tsx", "TypeScript JSX", 52, 0, 0, 0, 0, 0, 0, 8, 60
+"c:\Users\HABIB\Desktop\LMS\LMS\src\assets\Images\Compare_with_others.svg", "XML", 0, 0, 0, 0, 0, 52, 0, 1, 53
+"c:\Users\HABIB\Desktop\LMS\LMS\src\assets\Images\Know_your_progress.svg", "XML", 0, 0, 0, 0, 0, 45, 0, 1, 46
+"c:\Users\HABIB\Desktop\LMS\LMS\src\assets\Images\Plan_your_lessons.svg", "XML", 0, 0, 0, 0, 0, 86, 0, 1, 87
+"c:\Users\HABIB\Desktop\LMS\LMS\src\assets\Images\bghome.svg", "XML", 0, 0, 0, 0, 0, 71, 0, 1, 72
+"c:\Users\HABIB\Desktop\LMS\LMS\src\assets\TimeLineLogo\Logo1.svg", "XML", 0, 0, 0, 0, 0, 3, 0, 1, 4
+"c:\Users\HABIB\Desktop\LMS\LMS\src\assets\TimeLineLogo\Logo2.svg", "XML", 0, 0, 0, 0, 0, 3, 0, 1, 4
+"c:\Users\HABIB\Desktop\LMS\LMS\src\assets\TimeLineLogo\Logo3.svg", "XML", 0, 0, 0, 0, 0, 3, 0, 1, 4
+"c:\Users\HABIB\Desktop\LMS\LMS\src\assets\TimeLineLogo\Logo4.svg", "XML", 0, 0, 0, 0, 0, 3, 0, 1, 4
+"c:\Users\HABIB\Desktop\LMS\LMS\src\components\common\ContactUsForm.tsx", "TypeScript JSX", 144, 0, 0, 0, 0, 0, 6, 12, 162
+"c:\Users\HABIB\Desktop\LMS\LMS\src\components\common\Footer.tsx", "TypeScript JSX", 57, 0, 0, 0, 0, 0, 6, 10, 73
+"c:\Users\HABIB\Desktop\LMS\LMS\src\components\common\Navbar.tsx", "TypeScript JSX", 96, 0, 0, 0, 0, 0, 8, 14, 118
+"c:\Users\HABIB\Desktop\LMS\LMS\src\components\core\Auth\ProfileDropdown.tsx", "TypeScript JSX", 84, 0, 0, 0, 0, 0, 3, 8, 95
+"c:\Users\HABIB\Desktop\LMS\LMS\src\components\core\Dashboard\Cart.tsx", "TypeScript JSX", 112, 0, 0, 0, 0, 0, 5, 11, 128
+"c:\Users\HABIB\Desktop\LMS\LMS\src\components\core\Dashboard\ChipInput.tsx", "TypeScript JSX", 45, 0, 0, 0, 0, 0, 1, 9, 55
+"c:\Users\HABIB\Desktop\LMS\LMS\src\components\core\Dashboard\EnrolledCourses.tsx", "TypeScript JSX", 49, 0, 0, 0, 0, 0, 0, 8, 57
+"c:\Users\HABIB\Desktop\LMS\LMS\src\components\core\Dashboard\LogoutModel.tsx", "TypeScript JSX", 55, 0, 0, 0, 0, 0, 3, 8, 66
+"c:\Users\HABIB\Desktop\LMS\LMS\src\components\core\Dashboard\MyProfile.tsx", "TypeScript JSX", 97, 0, 0, 0, 0, 0, 3, 19, 119
+"c:\Users\HABIB\Desktop\LMS\LMS\src\components\core\Dashboard\Setting.tsx", "TypeScript JSX", 286, 0, 0, 0, 0, 0, 4, 30, 320
+"c:\Users\HABIB\Desktop\LMS\LMS\src\components\core\Dashboard\Sidebar.tsx", "TypeScript JSX", 56, 0, 0, 0, 0, 0, 0, 12, 68
+"c:\Users\HABIB\Desktop\LMS\LMS\src\components\core\Dashboard\SidebarLink.tsx", "TypeScript JSX", 26, 0, 0, 0, 0, 0, 0, 4, 30
+"c:\Users\HABIB\Desktop\LMS\LMS\src\components\core\Dashboard\createCourse\CreateCourse.tsx", "TypeScript JSX", 285, 0, 0, 0, 0, 0, 2, 32, 319
+"c:\Users\HABIB\Desktop\LMS\LMS\src\components\core\Dashboard\createCourse\courseBuilder\CourseBuilderForm.tsx", "TypeScript JSX", 137, 0, 0, 0, 0, 0, 3, 28, 168
+"c:\Users\HABIB\Desktop\LMS\LMS\src\components\core\Dashboard\createCourse\courseBuilder\NestedView.tsx", "TypeScript JSX", 97, 0, 0, 0, 0, 0, 10, 43, 150
+"c:\Users\HABIB\Desktop\LMS\LMS\src\components\core\Dashboard\createCourse\courseBuilder\SubSectionModal.tsx", "TypeScript JSX", 140, 0, 0, 0, 0, 0, 1, 30, 171
+"c:\Users\HABIB\Desktop\LMS\LMS\src\components\core\HomePage\Button.tsx", "TypeScript JSX", 23, 0, 0, 0, 0, 0, 0, 4, 27
+"c:\Users\HABIB\Desktop\LMS\LMS\src\components\core\HomePage\CodeBlock.tsx", "TypeScript JSX", 261, 0, 0, 0, 0, 0, 9, 29, 299
+"c:\Users\HABIB\Desktop\LMS\LMS\src\components\core\HomePage\CodeBlock2.tsx", "TypeScript JSX", 255, 0, 0, 0, 0, 0, 9, 29, 293
+"c:\Users\HABIB\Desktop\LMS\LMS\src\components\core\HomePage\Section1.tsx", "TypeScript JSX", 183, 0, 0, 0, 0, 0, 10, 22, 215
+"c:\Users\HABIB\Desktop\LMS\LMS\src\components\core\HomePage\Section2.tsx", "TypeScript JSX", 144, 0, 0, 0, 0, 0, 7, 13, 164
+"c:\Users\HABIB\Desktop\LMS\LMS\src\components\core\HomePage\Section3.tsx", "TypeScript JSX", 38, 0, 0, 0, 0, 0, 3, 6, 47
+"c:\Users\HABIB\Desktop\LMS\LMS\src\data\countrycode.json", "JSON", 0, 0, 0, 782, 0, 0, 0, 1, 783
+"c:\Users\HABIB\Desktop\LMS\LMS\src\data\dashboard-links.ts", "TypeScript", 0, 0, 51, 0, 0, 0, 0, 2, 53
+"c:\Users\HABIB\Desktop\LMS\LMS\src\data\footer-links.js", "JavaScript", 0, 0, 0, 0, 55, 0, 0, 1, 56
+"c:\Users\HABIB\Desktop\LMS\LMS\src\data\homepage-explore.js", "JavaScript", 0, 0, 0, 0, 117, 0, 0, 0, 117
+"c:\Users\HABIB\Desktop\LMS\LMS\src\data\navbar-links.ts", "TypeScript", 0, 0, 21, 0, 0, 0, 0, 1, 22
+"c:\Users\HABIB\Desktop\LMS\LMS\src\index.css", "PostCSS", 0, 114, 0, 0, 0, 0, 11, 18, 143
+"c:\Users\HABIB\Desktop\LMS\LMS\src\main.tsx", "TypeScript JSX", 15, 0, 0, 0, 0, 0, 0, 2, 17
+"c:\Users\HABIB\Desktop\LMS\LMS\src\pages\About.tsx", "TypeScript JSX", 136, 0, 0, 0, 0, 0, 15, 18, 169
+"c:\Users\HABIB\Desktop\LMS\LMS\src\pages\Contact.tsx", "TypeScript JSX", 174, 0, 0, 0, 0, 0, 15, 13, 202
+"c:\Users\HABIB\Desktop\LMS\LMS\src\pages\Course.tsx", "TypeScript JSX", 130, 0, 0, 0, 0, 0, 1, 8, 139
+"c:\Users\HABIB\Desktop\LMS\LMS\src\pages\Dashboard.tsx", "TypeScript JSX", 29, 0, 0, 0, 0, 0, 0, 7, 36
+"c:\Users\HABIB\Desktop\LMS\LMS\src\pages\Home.tsx", "TypeScript JSX", 18, 0, 0, 0, 0, 0, 0, 7, 25
+"c:\Users\HABIB\Desktop\LMS\LMS\src\pages\Login.tsx", "TypeScript JSX", 135, 0, 0, 0, 0, 0, 2, 14, 151
+"c:\Users\HABIB\Desktop\LMS\LMS\src\pages\ResendEmail.tsx", "TypeScript JSX", 34, 0, 0, 0, 0, 0, 0, 5, 39
+"c:\Users\HABIB\Desktop\LMS\LMS\src\pages\ResetPassword.tsx", "TypeScript JSX", 174, 0, 0, 0, 0, 0, 22, 24, 220
+"c:\Users\HABIB\Desktop\LMS\LMS\src\pages\SignUp.tsx", "TypeScript JSX", 242, 0, 0, 0, 0, 0, 6, 23, 271
+"c:\Users\HABIB\Desktop\LMS\LMS\src\pages\Test.tsx", "TypeScript JSX", 16, 0, 0, 0, 0, 0, 52, 22, 90
+"c:\Users\HABIB\Desktop\LMS\LMS\src\pages\VerifyEmail.tsx", "TypeScript JSX", 102, 0, 0, 0, 0, 0, 3, 16, 121
+"c:\Users\HABIB\Desktop\LMS\LMS\src\services\apiConnector.ts", "TypeScript", 0, 0, 17, 0, 0, 0, 0, 3, 20
+"c:\Users\HABIB\Desktop\LMS\LMS\src\services\apis.ts", "TypeScript", 0, 0, 25, 0, 0, 0, 0, 8, 33
+"c:\Users\HABIB\Desktop\LMS\LMS\src\services\opeartions\authApi.ts", "TypeScript", 0, 0, 185, 0, 0, 0, 16, 39, 240
+"c:\Users\HABIB\Desktop\LMS\LMS\src\services\opeartions\courseApi.ts", "TypeScript", 0, 0, 114, 0, 0, 0, 0, 23, 137
+"c:\Users\HABIB\Desktop\LMS\LMS\src\services\opeartions\profileApi.ts", "TypeScript", 0, 0, 105, 0, 0, 0, 4, 22, 131
+"c:\Users\HABIB\Desktop\LMS\LMS\src\store\useAuthStore.ts", "TypeScript", 0, 0, 23, 0, 0, 0, 0, 5, 28
+"c:\Users\HABIB\Desktop\LMS\LMS\src\store\useCartStore.ts", "TypeScript", 0, 0, 70, 0, 0, 0, 4, 23, 97
+"c:\Users\HABIB\Desktop\LMS\LMS\src\store\useCourseStore.ts", "TypeScript", 0, 0, 28, 0, 0, 0, 0, 10, 38
+"c:\Users\HABIB\Desktop\LMS\LMS\src\store\useProfileStore.ts", "TypeScript", 0, 0, 30, 0, 0, 0, 0, 5, 35
+"Total", "-", 3927, 115, 669, 782, 172, 266, 244, 717, 6892

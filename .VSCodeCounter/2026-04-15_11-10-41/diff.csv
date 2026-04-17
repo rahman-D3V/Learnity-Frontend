@@ -1,0 +1,12 @@
+"filename", "language", "JavaScript", "HTML", "JSON", "TypeScript", "Markdown", "JSON with Comments", "XML", "comment", "blank", "total"
+"c:\Users\HABIB\Desktop\LMS\LMS\README.md", "Markdown", 0, 0, 0, 0, -60, 0, 0, 0, -14, -74
+"c:\Users\HABIB\Desktop\LMS\LMS\eslint.config.js", "JavaScript", -22, 0, 0, 0, 0, 0, 0, 0, -2, -24
+"c:\Users\HABIB\Desktop\LMS\LMS\index.html", "HTML", 0, -14, 0, 0, 0, 0, 0, 0, -1, -15
+"c:\Users\HABIB\Desktop\LMS\LMS\package-lock.json", "JSON", 0, 0, -4476, 0, 0, 0, 0, 0, -1, -4477
+"c:\Users\HABIB\Desktop\LMS\LMS\package.json", "JSON", 0, 0, -43, 0, 0, 0, 0, 0, -1, -44
+"c:\Users\HABIB\Desktop\LMS\LMS\public\vite.svg", "XML", 0, 0, 0, 0, 0, 0, -1, 0, 0, -1
+"c:\Users\HABIB\Desktop\LMS\LMS\tsconfig.app.json", "JSON", 0, 0, -24, 0, 0, 0, 0, -2, -3, -29
+"c:\Users\HABIB\Desktop\LMS\LMS\tsconfig.json", "JSON with Comments", 0, 0, 0, 0, 0, -7, 0, 0, -1, -8
+"c:\Users\HABIB\Desktop\LMS\LMS\tsconfig.node.json", "JSON", 0, 0, -22, 0, 0, 0, 0, -2, -3, -27
+"c:\Users\HABIB\Desktop\LMS\LMS\vite.config.ts", "TypeScript", 0, 0, 0, -6, 0, 0, 0, -1, -2, -9
+"Total", "-", -22, -14, -4565, -6, -60, -7, -1, -5, -28, -4708

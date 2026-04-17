@@ -101,3 +101,30 @@ export async function updateProfileDetails(
     console.log(error);
   }
 }
+
+export async function getEnrolledCourses() {
+  let result = [];
+  try {
+    const { token } = useAuthStore.getState();
+
+    const response = await apiConnector(
+      "GET",
+      profileEndpoints.getEnrolledCourses,
+      null,
+      {
+        Authorization: `Bearer ${token}`,
+      },
+    );
+
+    console.log("AFTER Calling BACKEND API FOR ENROLLED COURSES");
+
+    if (!response.data.success) {
+      throw new Error(response.data.message);
+    }
+    result = response.data.data;
+    return result;
+  } catch (error) {
+    console.log("GET_USER_ENROLLED_COURSES_API API ERROR............", error);
+    toast.error("Could Not Get Enrolled Courses");
+  }
+}
