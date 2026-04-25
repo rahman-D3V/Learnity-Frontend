@@ -1,53 +1,37 @@
-import React, { useEffect, useRef, useState } from "react";
-import { IoIosArrowForward } from "react-icons/io";
-import { LuCloudUpload } from "react-icons/lu";
+import { useForm } from "react-hook-form";
 import { useCourseStore } from "../../../../store/useCourseStore";
+import { useEffect, useRef, useState } from "react";
 import { apiConnector } from "../../../../services/apiConnector";
 import { categoriesEndpoints } from "../../../../services/apis";
-import ChipInput from "../ChipInput";
-import { useForm, type SubmitHandler } from "react-hook-form";
-import { createCourse } from "../../../../services/opeartions/courseApi";
-import CourseBuilderForm from "./courseBuilder/CourseBuilderForm";
-import { ImSpinner10 } from "react-icons/im";
-import PublishCourse from "./courseBuilder/PublishCourse";
-export const CreateCourse = () => {
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
+import { LuCloudUpload } from "react-icons/lu";
+import { IoIosArrowForward } from "react-icons/io";
+import {
+  fetchCourseDetails,
+  updateCourse,
+} from "../../../../services/opeartions/courseApi";
+import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import SectionEdit from "./SectionEditor";
 
+const Step1 = () => {
+  const [courseCategories, setCourseCategories] = useState([]);
+  const [courseInstruction, setCourseInstruction] = useState<string[]>([]);
+  const [input, setInput] = useState("");
+
+  const [thumbnail, setThumbnail] = useState<File | string>("x");
+  const [loading, setLoading] = useState(true);
+
+  const [course, setCourse] = useState<CourseType>();
   const step = useCourseStore((s) => s.step);
   const setStep = useCourseStore((s) => s.setStep);
 
-  const [courseInstruction, setCourseInstruction] = useState<string[]>([]);
-  const [input, setInput] = useState("");
-  const [loading, setLoading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-  const [courseCategories, setCourseCategories] = useState([]);
-  console.log(courseCategories);
+  function handleClick() {
+    fileInputRef.current?.click();
+  }
 
-  const course = useCourseStore((s) => s.course);
-  const setCourse = useCourseStore((s) => s.setCourse);
-
-  const courseTag = useCourseStore((s) => s.courseTag);
-  console.log(courseTag);
-
-  const [thumbnail, setThumbnail] = useState<File | null>(null);
-  const [thumbnailPreview, setThumbnailPreview] = useState<string | null>(null);
-
-  const handleThumbnail = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files![0];
-
-    if (!file) return; // important safety check
-
-    setThumbnail(file);
-
-    const imageURL = URL.createObjectURL(file);
-    setThumbnailPreview(imageURL);
-
-    console.log(imageURL);
-  };
-
-  const handleClick = () => {
-    fileInputRef.current!.click();
-  };
+  const { id } = useParams();
 
   const handleCourseInstruction = () => {
     if (input.trim() === "") return;
@@ -66,57 +50,133 @@ export const CreateCourse = () => {
   const {
     register,
     handleSubmit,
+    setValue,
+    getValues,
     formState: { errors },
   } = useForm<FormValues>();
 
-  const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    console.log(data);
-
-    setLoading(true);
+  async function onSubmit() {
     const formData = new FormData();
+    const updatedCourse: UpdatedCourseInterface = {};
 
-    Object.entries(data).forEach(([key, value]) => {
-      formData.append(key, value);
-    });
+    if (typeof thumbnail === "string") {
+      if (thumbnail.length == 0) {
+        toast.error("Thumbnail is required");
+        return;
+      }
+    }
 
-    if (thumbnail) {
+    if (typeof thumbnail === "object") {
       formData.append("file", thumbnail);
+      formData.append("courseId", id!);
+
+      if (course?.courseName !== getValues("courseName")) {
+        formData.append("courseName", getValues("courseName"));
+      }
+      if (course?.courseDescription !== getValues("courseDescription")) {
+        formData.append("courseDescription", getValues("courseDescription"));
+      }
+      if (course?.category._id !== getValues("category")) {
+        formData.append("category", getValues("category"));
+      }
+      if (course?.price !== Number(getValues("price"))) {
+        formData.append("price", getValues("price"));
+      }
+      if (course?.whatYouWillLearn !== getValues("whatYouWillLearn")) {
+        formData.append("whatYouWillLearn", getValues("whatYouWillLearn"));
+      }
+      if (
+        JSON.stringify(JSON.stringify(course?.instructions || "[]")) !==
+        JSON.stringify(courseInstruction)
+      ) {
+        formData.append("instructions", JSON.stringify(courseInstruction));
+      }
+      console.log("image is changed and now is object");
+      const res = await updateCourse(formData);
+      if (res) setStep(2);
+    } else {
+      if (course?.courseName !== getValues("courseName")) {
+        updatedCourse.courseName = getValues("courseName");
+      }
+      if (course?.courseDescription !== getValues("courseDescription")) {
+        updatedCourse.courseDescription = getValues("courseDescription");
+      }
+      if (course?.category._id !== getValues("category")) {
+        updatedCourse.category = getValues("category");
+      }
+      if (course?.price !== Number(getValues("price"))) {
+        updatedCourse.price = getValues("price");
+      }
+      if (course?.whatYouWillLearn !== getValues("whatYouWillLearn")) {
+        updatedCourse.whatYouWillLearn = getValues("whatYouWillLearn");
+      }
+      if (
+        JSON.stringify(course?.instructions) !==
+        JSON.stringify(courseInstruction)
+      ) {
+        updatedCourse.instructions = courseInstruction;
+      }
+      if (id) {
+        updatedCourse.courseId = id;
+      }
+      console.log("image is not chnaged");
+      console.log(updatedCourse);
+      const res = await updateCourse(updatedCourse);
+      if (res) setStep(2);
     }
+  }
 
-    formData.append("instructions", JSON.stringify(courseInstruction));
-    formData.append("tags", JSON.stringify(courseTag));
-
-    console.log(formData);
-    const res = await createCourse(formData);
-    console.log(res);
-
-    setLoading(false);
-    if (res) {
-      setStep(2);
-      setCourse(res);
+  function handleThumbnail(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (file) {
+      setThumbnail(file);
     }
-  };
-
-  console.log(course);
+  }
 
   useEffect(() => {
     async function fetchAllCategories() {
+      //   setLoading(true);
       const response = await apiConnector(
         "GET",
         categoriesEndpoints.getAllCategoriesApi,
       );
       setCourseCategories(response.data.data);
       console.log(response.data.data);
+      setLoading(false);
     }
+
+    async function getCourseDetails() {
+      if (!id) return;
+
+      const res = await fetchCourseDetails(id);
+      if (res) {
+        console.log(res, "-- -- --");
+
+        setCourseInstruction(res.instructions);
+        setThumbnail(res.thumbnail);
+        setValue("courseDescription", res.courseDescription);
+        setValue("courseName", res.courseName);
+        setValue("price", res.price);
+        setValue("whatYouWillLearn", res.whatYouWillLearn);
+        setValue("category", res.category._id);
+        setCourse(res);
+      }
+    }
+
     fetchAllCategories();
+    getCourseDetails();
   }, []);
+
+  if (loading) {
+    return <h1 className="text-3xl text-white">Loaduing</h1>;
+  }
 
   return (
     <div className="text-white w-full px-6 py-8">
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-white">Add Course</h1>
+        <h1 className="text-2xl font-bold text-white">Edit Course</h1>
         <p className="text-sm text-richblack-300 mt-1">
-          Fill in the details below to create your course
+          Fill in the details below to edit your course
         </p>
       </div>
 
@@ -210,7 +270,9 @@ export const CreateCourse = () => {
                 {...register("category", { required: true })}
                 className="w-full rounded-xl p-3 bg-richblack-700 border border-richblack-600 text-sm text-richblack-5 outline-none focus:border-yellow-50 focus:ring-2 focus:ring-yellow-900/30"
               >
-                <option>Choose a Category</option>
+                <option value={""} disabled>
+                  Choose a Category
+                </option>
                 {courseCategories.map((item: CourseCategory) => (
                   <option key={item._id} value={item._id}>
                     {item.name}
@@ -222,22 +284,22 @@ export const CreateCourse = () => {
               )}
             </div>
 
-            <ChipInput />
+            {/* <ChipInput /> */}
 
             <div className="space-y-2">
-              {thumbnailPreview ? (
+              {thumbnail ? (
                 <div className="space-y-3 rounded-2xl bg-richblack-700 border border-richblack-600 p-4">
                   <p className="text-sm font-medium text-richblack-5">
                     Course Thumbnail
                   </p>
                   <img
-                    src={thumbnailPreview}
+                    src={thumbnail instanceof File ? "" : thumbnail}
                     alt=""
                     className="w-full max-h-[260px] object-cover rounded-xl border border-richblack-600"
                   />
                   <button
                     type="button"
-                    onClick={() => setThumbnailPreview(null)}
+                    onClick={() => setThumbnail("")}
                     className="text-sm font-medium text-pink-200 hover:text-pink-100 transition-colors"
                   >
                     Cancel
@@ -345,60 +407,37 @@ export const CreateCourse = () => {
               type="submit"
               className="self-end flex items-center cursor-pointer bg-yellow-50 hover:bg-yellow-100 transition-colors py-3 px-5 text-black gap-2 rounded-lg font-medium"
             >
-              {loading ? (
+              {/* {loading ? (
                 <ImSpinner10 className="animate-spin" size={19} />
               ) : (
                 "Next"
               )}
-              {!loading && <IoIosArrowForward size={14} />}
+              {!loading && <IoIosArrowForward size={14} />} */}
+              Next <IoIosArrowForward size={14} />
             </button>
           </form>
-
-          <div className="w-[384px] rounded-2xl p-6 space-y-4 bg-richblack-800 border border-richblack-700 shadow-lg sticky top-6">
-            <p className="text-base font-semibold text-yellow-50">
-              ⚡ Course Upload Tips
-            </p>
-            <ul className="space-y-3 text-sm text-richblack-100 leading-6 list-disc pl-5">
-              <li>Set the Course Price option or make it free.</li>
-              <li>Standard size for the course thumbnail is 1024x576.</li>
-              <li>Video section controls the course overview video.</li>
-              <li>Course Builder is where you create & organize a course.</li>
-              <li>
-                Add Topics in the Course Builder section to create lessons,
-                quizzes, and assignments.
-              </li>
-              <li>
-                Information from the Additional Data section shows up on the
-                course single page.
-              </li>
-              <li>Make Announcements to notify any important updates.</li>
-              <li>Notes to all enrolled students at once.</li>
-            </ul>
-          </div>
         </div>
       )}
 
       {/* Course-Builder-Form */}
-      {step == 2 && <CourseBuilderForm />}
+      {step == 2 && <SectionEdit />}
 
       {/* Course-Publish-Form */}
-      {step == 3 && <PublishCourse />}
+      {/* {step == 3 && <PublishCourse/>} */}
     </div>
   );
 };
 
+export default Step1;
+
 const steps = [
   {
     id: 1,
-    title: "Course Information",
+    title: "Edit Course Information",
   },
   {
     id: 2,
-    title: "Course Builder",
-  },
-  {
-    id: 3,
-    title: "Publish",
+    title: "Edt Sections & Lectures",
   },
 ];
 
@@ -415,3 +454,41 @@ type CourseCategory = {
   name: string;
   _id: string;
 };
+
+type CourseType = {
+  _id: string;
+  courseName: string;
+  courseDescription: string;
+  thumbnail: string;
+  price: number;
+
+  whatYouWillLearn: string;
+  courseContent: unknown[];
+
+  ratingAndReviews: unknown[];
+  tags: string[];
+  studentsEnrolled: string[];
+  instructions: string[];
+
+  category: Category;
+
+  createdAt: string;
+  updatedAt: string;
+};
+
+interface Category {
+  _id: string;
+  name: string;
+  description: string;
+  courses: string[];
+}
+
+interface UpdatedCourseInterface {
+  courseName?: string;
+  courseDescription?: string;
+  category?: string;
+  price?: string;
+  instructions?: string[];
+  courseId?: string;
+  whatYouWillLearn?: string;
+}

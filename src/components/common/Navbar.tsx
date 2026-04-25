@@ -3,42 +3,49 @@ import { navbarLinks, type NavbarLink } from "../../data/navbar-links";
 import { useAuthStore } from "../../store/useAuthStore";
 import { useProfileStore } from "../../store/useProfileStore";
 import ProfileDropdown from "../core/Auth/ProfileDropdown";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { apiConnector } from "../../services/apiConnector";
 import { categoriesEndpoints } from "../../services/apis";
+import { useCatalogStore } from "../../store/useCatalogStore";
+import { slugify } from "../../utils/avgRating";
+import { FiShoppingCart } from "react-icons/fi";
 
 const Navbar = () => {
   const location = useLocation();
   const path = location.pathname;
 
-  // const token = useAuthStore((state) = state.token)
-  // const user = useProfileStore((state) = state.user)
-  // const totalItems = useCartStore((state) = state.totalItems)
+  const [subLinks, setSublinks] = useState<SubLinkTyps[]>([]);
 
   const user = useProfileStore((s) => s.user);
   const token = useAuthStore((s) => s.token);
 
-  const subLinks = [
-    {
-      name: "Python",
-      path: "/catalog/python",
-    },
-    {
-      name: "AI/ML",
-      path: "/catalog/ai-ml",
-    },
-  ];
+  const setCategoryName = useCatalogStore((s) => s.setCategoryName);
+  const setCategoryId = useCatalogStore((s) => s.setCategoryId);
+  const SetCategoryDescription = useCatalogStore(
+    (s) => s.SetCategoryDescription,
+  );
+
+  function handleNavigation(
+    categoryName: string,
+    categoryId: string,
+    CategoryDesc: string,
+  ) {
+    setCategoryName(categoryName);
+    setCategoryId(categoryId);
+    SetCategoryDescription(CategoryDesc);
+    console.log(categoryName, categoryId);
+  }
 
   useEffect(() => {
-    const fetchAllCategories = async (): Promise<void> => {
-      const data = await apiConnector(
+    async function fetchCategories() {
+      const categories = await apiConnector(
         "GET",
         categoriesEndpoints.getAllCategoriesApi,
       );
-      // console.log(data);
-    };
-
-    fetchAllCategories();
+      console.log(categories.data.data);
+      setSublinks(categories.data.data);
+    }
+    fetchCategories();
   }, []);
 
   return (
@@ -70,12 +77,20 @@ const Navbar = () => {
                   {subLinks.map((subItem) => (
                     <Link
                       key={subItem.name}
-                      to={subItem.path}
+                      onClick={() =>
+                        handleNavigation(
+                          subItem.name,
+                          subItem._id,
+                          subItem.description,
+                        )
+                      }
+                      to={`catelog/${slugify(subItem.name)}`}
                       className="block px-4 py-2 text-sm text-richblack-900 hover:bg-richblack-100 transition"
                     >
                       {subItem.name}
                     </Link>
                   ))}
+                  {!subLinks.length && <div>Loading...</div>}
                 </div>
               </div>
             ),
@@ -83,10 +98,14 @@ const Navbar = () => {
         </div>
 
         {/* Auth-Button show if user is log-out */}
-        <div className="flex gap-3 text-richblack-100 text-[16px] font-inter font-medium">
+        <div className="flex items-center gap-8 text-richblack-100 text-[16px] font-inter font-medium">
           {user && user?.accountType != "Instructor" && (
-            <Link to={"/dashboard/cart"}>
-              {/* insert here no of cart items */}
+            <Link
+              to="/dashboard/cart"
+              className="flex items-center gap-2 text-gray-300 hover:text-yellow-50 transition"
+            >
+              <FiShoppingCart size={20} />
+              <span>Cart</span>
             </Link>
           )}
 
@@ -115,3 +134,9 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+type SubLinkTyps = {
+  name: string;
+  _id: string;
+  description: string;
+};

@@ -1,18 +1,20 @@
 import { MdDeleteSweep, MdEdit } from "react-icons/md";
-import {
-  useCourseStore,
-  type SubSectionType,
-} from "../../../../../store/useCourseStore";
+
 import { RxDropdownMenu } from "react-icons/rx";
 import { useState } from "react";
 import { FaPlus } from "react-icons/fa";
+
+import {
+  useCourseStore,
+  type SubSectionType,
+} from "../../../../store/useCourseStore";
 import {
   deleteSection,
   deleteSubSection,
-} from "../../../../../services/opeartions/courseApi";
-import SubSectionModal from "./SubSectionModal";
+} from "../../../../services/opeartions/courseApi";
+import SubSectionModal from "../createCourse/courseBuilder/SubSectionModal";
 
-const NestedView = ({ handleChangeEditSectionName }: NestedViewProps) => {
+const SubSectionEdit = ({ handleChangeEditSectionName }: NestedViewProps) => {
   const course = useCourseStore((s) => s.course);
   const setCourse = useCourseStore((s) => s.setCourse);
 
@@ -187,7 +189,7 @@ const NestedView = ({ handleChangeEditSectionName }: NestedViewProps) => {
   );
 };
 
-export default NestedView;
+export default SubSectionEdit;
 
 type NestedViewProps = {
   handleChangeEditSectionName: (sectionId: string, sectionName: string) => void;

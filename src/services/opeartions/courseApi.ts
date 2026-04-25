@@ -1,7 +1,8 @@
 import { toast } from "react-toastify";
 import { useAuthStore } from "../../store/useAuthStore";
 import { apiConnector } from "../apiConnector";
-import { courseEndpoints } from "../apis";
+import { categoriesEndpoints, courseEndpoints } from "../apis";
+import { useCatalogStore } from "../../store/useCatalogStore";
 
 export async function createCourse(formData) {
   const { token } = useAuthStore.getState();
@@ -208,9 +209,95 @@ export async function deleteCourse(courseId: string) {
     }
 
     toast.success("CourseData dleetd successfully");
+    return response.data.data;
   } catch (error) {
     console.log(error);
     toast.error("Failed to remove couse data");
+  } finally {
+    toast.dismiss(toastId);
+  }
+}
+
+export async function getInstructorCourses() {
+  const { token } = useAuthStore.getState();
+  const toastId = toast.loading("Loading..");
+  try {
+    const response = await apiConnector(
+      "GET",
+      courseEndpoints.getInstructorCourse,
+      {},
+      { Authorization: `Bearer ${token}` },
+    );
+
+    if (!response.data.success) {
+      throw new Error("Something went wrong");
+    }
+    return response.data.data;
+  } catch (error) {
+    console.log(error);
+  } finally {
+    toast.dismiss(toastId);
+  }
+}
+
+export async function fetchCourseDetails(courseId: string) {
+  try {
+    const response = await apiConnector("POST", courseEndpoints.courseDetails, {
+      courseId,
+    });
+
+    if (!response.data.success) {
+      throw new Error(response.data.message);
+    }
+
+    return response.data.data;
+  } catch (error) {
+    toast.error("Something went wrong, Try again");
+    console.log("Error while fetching course deatisl", error);
+  }
+}
+
+export async function updateCourse(data) {
+  const { token } = useAuthStore.getState();
+  try {
+    const response = await apiConnector(
+      "POST",
+      courseEndpoints.updateCourse,
+      data,
+      { Authorization: `Bearer ${token}` },
+    );
+
+    if (!response.data.success) {
+      throw new Error(response.data.message);
+    }
+    toast.success("Course data update successfully");
+    return true;
+  } catch (error) {
+    toast.error("Something went wrong, Try again");
+    console.log("Error while fetching course deatisl", error);
+    return false;
+  }
+}
+
+export async function getCategoryDetails() {
+  const toastId = toast.loading("Loading...");
+  try {
+    const { categoryId } = useCatalogStore.getState();
+
+    const response = await apiConnector(
+      "POST",
+      categoriesEndpoints.getCatgegoriesPageDetails,
+      { categoryId },
+    );
+    console.log(" fetching cat details", response);
+
+    if (!response.data.success) {
+      throw new Error(response.data.message);
+    }
+    return response.data.data;
+  } catch (error) {
+    console.log("Error while fetching cat details", error);
+    toast.error("Can't fetched cat details");
   } finally {
     toast.dismiss(toastId);
   }

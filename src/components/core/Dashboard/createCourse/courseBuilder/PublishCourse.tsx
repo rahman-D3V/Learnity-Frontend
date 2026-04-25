@@ -5,16 +5,20 @@ import { toast } from "react-toastify";
 
 const PublishCourse = () => {
   const course = useCourseStore((s) => s.course);
+  const setStep = useCourseStore((s) => s.setStep);
   const navigate = useNavigate();
 
   const handlePublishCourse = async () => {
     toast.success("Course published successful");
-    navigate("dashboard/my-courses");
+    setStep(1);
+    navigate("/dashboard/my-courses");
   };
   const handleDeleteCourse = async () => {
     if (!course) return;
     const courseId = course?._id;
     await deleteCourse(courseId);
+    setStep(1);
+    navigate("/dashboard/my-courses");
   };
 
   return (

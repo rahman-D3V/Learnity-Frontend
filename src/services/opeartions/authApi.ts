@@ -5,6 +5,7 @@ import { authEndpoints } from "../apis";
 import { useProfileStore } from "../../store/useProfileStore";
 import type { Dispatch, SetStateAction } from "react";
 import type { NavigateFunction } from "react-router-dom";
+import { useCatalogStore } from "../../store/useCatalogStore";
 
 export async function getResetPasswordToken(
   email: string,
@@ -180,9 +181,12 @@ export async function signIn(
 export function logout(navigate: NavigateFunction) {
   const { setToken } = useAuthStore.getState();
   const { setUser } = useProfileStore.getState();
+  const { setCategoryId, setCategoryName } = useCatalogStore.getState();
 
   setToken(null);
   setUser(null);
+  setCategoryName(null);
+  setCategoryId(null);
   // reset cart - later
   localStorage.removeItem("user");
   localStorage.removeItem("token");

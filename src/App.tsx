@@ -16,6 +16,8 @@ import EnrolledCourse from "./components/core/Dashboard/EnrolledCourses";
 import Setting from "./components/core/Dashboard/Setting";
 import Cart from "./components/core/Dashboard/Cart";
 import { CreateCourse } from "./components/core/Dashboard/createCourse/CreateCourse";
+import MyCourses from "./components/core/Dashboard/MyCourses";
+import Step1 from "./components/core/Dashboard/editCourse/Step1";
 
 const App = () => {
   return (
@@ -35,7 +37,6 @@ const App = () => {
         <Route path="/contact" element={<Contact />} />
 
         <Route path="/dashboard/instructor" element={<Dashboard />} />
-        <Route path="/dashboard/my-courses" element={<Dashboard />} />
 
         <Route element={<Dashboard />}>
           <Route path="/dashboard/my-profile" element={<MyProfile />} />
@@ -46,9 +47,13 @@ const App = () => {
           <Route path="/dashboard/setting" element={<Setting />} />
           <Route path="/dashboard/cart" element={<Cart />} />
           <Route path="/dashboard/add-course" element={<CreateCourse />} />
+          <Route path="/dashboard/my-courses" element={<MyCourses />} />
+          <Route path="/dashboard/edit-course/:id" element={<Step1 />} />
         </Route>
 
         <Route path="*" element="Galat page pe aagye AAAAP..." />
+
+        <Route path="/catelog/:name" element={<Course />} />
 
         <Route path="/test" element={<Test />} />
       </Routes>
