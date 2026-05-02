@@ -73,24 +73,40 @@ const Navbar = () => {
                   {item.title}
                 </span>
 
-                <div className="absolute left-0 top-full mt-2 w-[220px] bg-richblack-5 rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                  {subLinks.map((subItem) => (
-                    <Link
-                      key={subItem.name}
-                      onClick={() =>
-                        handleNavigation(
-                          subItem.name,
-                          subItem._id,
-                          subItem.description,
-                        )
-                      }
-                      to={`catelog/${slugify(subItem.name)}`}
-                      className="block px-4 py-2 text-sm text-richblack-900 hover:bg-richblack-100 transition"
-                    >
-                      {subItem.name}
-                    </Link>
-                  ))}
-                  {!subLinks.length && <div>Loading...</div>}
+                <div className="absolute left-0 top-full mt-3 w-[240px] bg-richblack-800 border border-richblack-700 rounded-2xl shadow-2xl shadow-black/40 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 overflow-hidden">
+                  {/* Header */}
+                  <div className="px-4 py-3 border-b border-richblack-700">
+                    <p className="text-xs font-bold uppercase tracking-widest text-richblack-400">
+                      Browse Categories
+                    </p>
+                  </div>
+
+                  {/* Links */}
+                  <div className="py-2">
+                    {subLinks.map((subItem) => (
+                      <Link
+                        key={subItem.name}
+                        onClick={() =>
+                          handleNavigation(
+                            subItem.name,
+                            subItem._id,
+                            subItem.description,
+                          )
+                        }
+                        to={`catelog/${slugify(subItem.name)}`}
+                        className="flex items-center gap-3 px-4 py-2.5 text-sm text-richblack-100 hover:bg-richblack-700 hover:text-yellow-400 transition-colors"
+                      >
+                        <span className="w-1.5 h-1.5 rounded-full bg-richblack-500 shrink-0" />
+                        {subItem.name}
+                      </Link>
+                    ))}
+
+                    {!subLinks.length && (
+                      <div className="px-4 py-3 text-sm text-richblack-400 italic">
+                        Loading...
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
             ),

@@ -1,6 +1,6 @@
 import axios, { type Method } from "axios";
 
-export const axiosInstance = axios.create({});
+export const axiosInstance = axios.create({ withCredentials: true });
 
 export const apiConnector = (
   method: Method,

@@ -3,14 +3,17 @@ import Footer from "../components/common/Footer";
 import { useEffect, useState } from "react";
 import { useCatalogStore } from "../../src/store/useCatalogStore";
 import { getCategoryDetails } from "../services/opeartions/courseApi";
+import { useNavigate } from "react-router-dom";
+import { slugify } from "../utils/avgRating";
 
 const Course = () => {
   const categoryName = useCatalogStore((s) => s.categoryName);
   const categoryDescription = useCatalogStore((s) => s.categoryDescription);
   const [selected, setSelected] = useState<SelectedType[]>([]);
 
+  const navigate = useNavigate()
+
   useEffect(() => {
-    // console.log("hahhhhhhhhhh",name);
     async function fetchCategoryDetails() {
       const result = await getCategoryDetails();
       if (result) {
@@ -53,7 +56,7 @@ const Course = () => {
           <div className="flex items-center gap-6 ">
             <div className="flex gap-6 flex-1 overflow-x-auto">
               {selected.map((data:SelectedType) => (
-                <div>
+                <div onClick={() => navigate(`/course/${slugify(data.courseName)}/${data._id}`)}>
                   <Card
                     img={data.thumbnail}
                     courseName={data.courseName}

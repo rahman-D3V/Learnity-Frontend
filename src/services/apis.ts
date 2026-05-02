@@ -37,3 +37,8 @@ export const courseEndpoints = {
 
   getInstructorCourse: BASE_URL + "/course/getInstructorCourses",
 };
+
+export const paymentEndpoints = {
+  coursePayment: BASE_URL + "/payment/capturePayment",
+  verifyCoursePayment: BASE_URL + "/payment/verifyPayment",
+};

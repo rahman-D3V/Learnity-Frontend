@@ -18,6 +18,7 @@ import Cart from "./components/core/Dashboard/Cart";
 import { CreateCourse } from "./components/core/Dashboard/createCourse/CreateCourse";
 import MyCourses from "./components/core/Dashboard/MyCourses";
 import Step1 from "./components/core/Dashboard/editCourse/Step1";
+import CourseDetails from "./pages/CourseDetails";
 
 const App = () => {
   return (
@@ -54,6 +55,8 @@ const App = () => {
         <Route path="*" element="Galat page pe aagye AAAAP..." />
 
         <Route path="/catelog/:name" element={<Course />} />
+
+        <Route path="/course/:courseName/:courseId" element={<CourseDetails/>} />
 
         <Route path="/test" element={<Test />} />
       </Routes>
